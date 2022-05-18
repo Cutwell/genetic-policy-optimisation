@@ -4,11 +4,11 @@
 * Image is parsed 1-1 into an environment matrix.
 
 ### Customisation
-1. Image must be 8bit Greyscale PNG image.
-2. L values indicate pixel representation.
+1. Image must be 8bit Greyscale (8Bpc GREY) PNG image.
+2. Incrementing greyscale values indicate map objects.
 
 | Pixel value | Representation |
 |:--:|:--:|
-|L=0|Air|
-|L=1|Wall|
-|L=2|Window|
+|#000000|Air|
+|#010101|Wall|
+|#020202|Window|

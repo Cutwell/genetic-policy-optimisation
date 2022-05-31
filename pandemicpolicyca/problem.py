@@ -1,5 +1,4 @@
 from platypus import *
-from IPython.display import display, HTML
 import matplotlib.pyplot as plt
 import numpy as np
 import cellpylib as cpl
@@ -229,7 +228,7 @@ class AutomataOptimisation(Problem):
                 interval=50,
                 colormap="Blues",
             )
-            display(HTML(airflow_ani.to_jshtml()))
+            #display(HTML(airflow_ani.to_jshtml()))
 
         airflow = airflow_ca[-1]  # final state == fixed state and correct airflow
 
@@ -350,8 +349,8 @@ class AutomataOptimisation(Problem):
             )
 
             # render as js animations
-            display(HTML(agent_ani.to_jshtml()))
-            display(HTML(infection_ani.to_jshtml()))
+            #display(HTML(agent_ani.to_jshtml()))
+            #display(HTML(infection_ani.to_jshtml()))
 
         final_state = agent_ca[-1]
         

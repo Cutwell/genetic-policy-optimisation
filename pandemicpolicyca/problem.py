@@ -6,7 +6,8 @@ import random
 from collections import Counter
 import itertools
 
-from pandemicpolicyca import AirflowRule, AgentRule, InfectionRule
+from pandemicpolicyca.rules import AirflowRule, AgentRule, InfectionRule
+from cellpylibhack import *
 
 class AutomataOptimisation(Problem):
     def __init__(
@@ -20,6 +21,7 @@ class AutomataOptimisation(Problem):
         epochs=50,
         verbose=0,
         evaluating=1,
+        progressbar=False,
     ):
         """Optimise social and physical factors to minimise infection rate in enclosed environment.
 
@@ -73,6 +75,8 @@ class AutomataOptimisation(Problem):
         self.pathogen_info = pathogen_info
         self.mask_effectiveness = mask_effectiveness  # efficiency of masking
 
+        self.progressbar = progressbar
+
     def evaluate(self, solution):
         """Evaluate using lazy or expensive methods."""
 
@@ -83,6 +87,10 @@ class AutomataOptimisation(Problem):
 
         else:
             self.full_evaluate(solution)
+
+        # progress bar
+        if self.progressbar:
+            self.progressbar.next()
 
         # if self.evaluating == 0:
         #    self.lazy_evaluate(solution)
@@ -328,7 +336,7 @@ class AutomataOptimisation(Problem):
                 masking,
                 self.mask_effectiveness,
             ),
-            apply_rule2=InfectionRule(matrix, airflow, pathogen_info),
+            apply_rule2=InfectionRule(matrix, airflow, self.pathogen_info),
             neighbourhood="Moore",
         )
 

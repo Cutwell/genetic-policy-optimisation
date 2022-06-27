@@ -5,6 +5,12 @@ import numpy as np
 from pandemicpolicyca import PathogenInfo, AutomataOptimisation
 from utility import parse_matrix_from_image
 
+from progress.bar import Bar
+
+epochs = 50
+population_size = 100
+progressbar = Bar("Processing", max=(epochs * population_size))
+
 filepath = "testing/smb.png"
 environment = parse_matrix_from_image(filepath, verbose=0)
 
@@ -25,10 +31,14 @@ problem = AutomataOptimisation(
     epochs=20,
     n_objectives=3,
     verbose=0,
+    progressbar=progressbar,
 )
 
-algorithm = NSGAII(problem, population_size=100)
-algorithm.run(100)
+algorithm = NSGAII(problem, population_size=population_size)
+algorithm.run(epochs)
+
+# finish bar
+progressbar.finish()
 
 Y = np.array([s.objectives for s in algorithm.result])
 
